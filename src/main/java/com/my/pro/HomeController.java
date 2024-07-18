@@ -12,7 +12,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "board/main1";
+		return "board/main";
 	}
 	
 }
