@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						https://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -21,4 +25,13 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>	
 		
+	<!-- .properties File load -->
+	<context:property-placeholder order="1" ignore-unresolvable="true"  location="classpath:config/movieApi.properties" />
+	
+	<!-- 영화진흥위원회 API 호출시 필요한 파라미터 -->
+	<bean id="MovieDto" class="com.my.pro.dto.MovieRequestDto">
+		<property name="movie_key" value="${movie.key}"></property>
+		<property name="baseurl" value="${movie.baseurl}"></property>
+	</bean>
+	
 </beans>
