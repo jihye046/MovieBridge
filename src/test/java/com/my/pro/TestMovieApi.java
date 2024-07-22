@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.my.pro.dto.MovieRequestDto;
 import com.my.pro.service.MovieService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +30,9 @@ public class TestMovieApi {
 	
 	@Autowired
 	private MovieService service;
+	
+	@Autowired
+	private MovieRequestDto movieRequestDto;
 	
 	@Test
 	public void testGetMovieContent() throws JsonParseException, JsonMappingException, IOException {
@@ -45,10 +49,10 @@ public class TestMovieApi {
 	}
 	
 	public String getMovieContent() throws UnsupportedEncodingException {
-		String encodedTitle = URLEncoder.encode("인셉션", StandardCharsets.UTF_8.toString());
+//		String encodedTitle = URLEncoder.encode("인셉션", StandardCharsets.UTF_8.toString());
 		UriComponents uriComponents = UriComponentsBuilder
 				.fromHttpUrl("http://www.omdbapi.com/")
-				.queryParam("apikey", "9695db43")
+				.queryParam("apikey", movieRequestDto.getMovie_key())
 				.queryParam("t", "inception")
 				.build();
 		try {
